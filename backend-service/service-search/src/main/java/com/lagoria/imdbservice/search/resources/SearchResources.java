@@ -32,29 +32,38 @@ public class SearchResources {
     @ApiOperation("Get a list of Tv Series based on input parameter")
     @GetMapping(path = "/seriesTv")
     @ResponseBody
-    public void getSearchBySeries(@RequestParam String expresionSearch) {
+    public SearchImdbModel getSearchBySeries(@RequestParam String expresionSearch) {
+        SearchImdbModel resultSearch = searchServices.getSearchImdbService("SearchSeries", expresionSearch);
 
+        return resultSearch;
     }
 
     @ApiOperation("Get a list of Campany Name based on input parameter")
     @GetMapping(path = "/company")
     @ResponseBody
-    public void getSearchByCompany(@RequestParam String expresionSearch) {
+    public SearchImdbModel getSearchByCompany(@RequestParam String expresionSearch) {
+        SearchImdbModel resultSearch = searchServices.getSearchImdbService("SearchCompany", expresionSearch);
 
+        return resultSearch;
     }
 
     @ApiOperation("Get a list of Person by Name (Actors, Actresses, Directors, Writers and ...)")
     @GetMapping(path = "/name")
     @ResponseBody
-    public void getSearchPeopleByName(@RequestParam String expressionSearch) {
+    public SearchImdbModel getSearchPeopleByName(@RequestParam String expresionSearch) {
 
+        SearchImdbModel resultSearch = searchServices.getSearchImdbService("SearchName", expresionSearch);
+
+        return resultSearch;
     }
 
-    @ApiOperation("Get a list of Episode based on input parameter (Actors, Actresses, Directors, Writers and ...)")
+    @ApiOperation("Get a list of Episode based on input parameter.")
     @GetMapping(path = "/episode")
     @ResponseBody
-    public void getSearchByEpisode(@RequestParam String expressionSearch) {
+    public SearchImdbModel getSearchByEpisode(@RequestParam String expressionSearch) {
+        SearchImdbModel resultSearch = searchServices.getSearchImdbService("SearchEpisode", expressionSearch);
 
+        return resultSearch;
     }
 
 }
