@@ -1,5 +1,6 @@
 package com.lagoria.imdbservice.topmovieseries.resources;
 
+import com.lagoria.imdbservice.topmovieseries.enums.ServiceIMDBEnum;
 import com.lagoria.imdbservice.topmovieseries.model.MostPopularData;
 import com.lagoria.imdbservice.topmovieseries.model.Top250Data;
 import com.lagoria.imdbservice.topmovieseries.services.TopMostPopularIMDBServices;
@@ -25,7 +26,10 @@ public class PopularMoviesTVResources {
     @ApiOperation("Get a list Of 250 Movies")
     @ResponseBody
     public Top250Data getTop250Movies() {
-        return imdbServices.getTop250Movies("Top250Movies");
+
+        return imdbServices
+                .getTop250Data(
+                        ServiceIMDBEnum.TOP_250_MOVIES.toString());
     }
 
     @GetMapping("/top25/series")
@@ -33,7 +37,9 @@ public class PopularMoviesTVResources {
     @ResponseBody
     public Top250Data getTop250Series() {
 
-        return imdbServices.getTop250Series("Top250TVs");
+        return imdbServices
+                .getTop250Data(
+                        ServiceIMDBEnum.TOP_250_TV.getNameService());
     }
 
     @GetMapping("/mostPopular/movies")
@@ -41,7 +47,10 @@ public class PopularMoviesTVResources {
     @ResponseBody
     public MostPopularData getMostPopularMovies() {
 
-        return imdbServices.getMostPopularMovies("MostPopularMovies");
+        return imdbServices
+                .getMostPopularData(
+                        ServiceIMDBEnum.MOST_POPULAR_MOVIES
+                                .getNameService());
     }
 
     @GetMapping("/mostPopular/tv")
@@ -49,7 +58,10 @@ public class PopularMoviesTVResources {
     @ResponseBody
     public MostPopularData getMostPopularTv() {
 
-        return imdbServices.getMostPopularTV("MostPopularTVs");
+        return imdbServices
+                .getMostPopularData(
+                        ServiceIMDBEnum.MOST_POPULAR_TV
+                                .getNameService());
     }
 
 }
