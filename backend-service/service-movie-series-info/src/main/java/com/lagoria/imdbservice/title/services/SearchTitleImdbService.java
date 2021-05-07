@@ -25,10 +25,7 @@ public class SearchTitleImdbService {
     public TitleDataImdb getTitleByIdImdb(String serviceUsed,
                                           String idTitle, Optional<String> expressionOptions) {
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/").append(serviceUsed)
-                .append("/").append(imdbProperties.getApiKey()).append("/").append(idTitle);
+        StringBuilder urlBuilder = getUrlServiceIMDB(serviceUsed, idTitle);
 
         if(expressionOptions.isPresent()) {
             urlBuilder.append("/").append(expressionOptions.orElseGet(()-> ""));
@@ -42,38 +39,26 @@ public class SearchTitleImdbService {
 
     public FullCastData getFullCastByIdTitleImdb(String serviceUsed, String idTitle) {
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/")
-                .append(serviceUsed).append("/").append(imdbProperties.getApiKey())
-                .append("/").append(idTitle);
-
-        FullCastData fullCastImdb = restTemplate.getForObject(urlBuilder.toString(), FullCastData.class);
+        FullCastData fullCastImdb = restTemplate.getForObject(
+                getUrlServiceIMDB(serviceUsed, idTitle).toString(),
+                FullCastData.class);
 
         return fullCastImdb;
     }
 
     public PosterData getPosterByIdTitleImdb(String serviceUsed, String idTitle) {
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/")
-                .append(serviceUsed).append("/").append(imdbProperties.getApiKey())
-                .append("/").append(idTitle);
-
-        PosterData posterDataImdb = restTemplate.getForObject(urlBuilder.toString(), PosterData.class);
+        PosterData posterDataImdb = restTemplate.getForObject(
+                getUrlServiceIMDB(serviceUsed, idTitle).toString(),
+                PosterData.class);
 
         return posterDataImdb;
     }
 
     public ImageData getImagenByIdTitleImdb(String serviceUsed, String idTitle, String optionImage) {
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/")
-                .append(serviceUsed).append("/").append(imdbProperties.getApiKey())
-                .append("/").append(idTitle)
-                .append("/").append(optionImage);
+        StringBuilder urlBuilder = getUrlServiceIMDB(serviceUsed, idTitle);
+        urlBuilder.append("/").append(optionImage);
 
         ImageData imagenDataImdb = restTemplate.getForObject(urlBuilder.toString(), ImageData.class);
         return imagenDataImdb;
@@ -81,28 +66,18 @@ public class SearchTitleImdbService {
 
     public TrailerData getTraileByIdTitle(String serviceUsed, String idTitle) {
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/")
-                .append(serviceUsed).append("/").append(imdbProperties.getApiKey())
-                .append("/").append(idTitle);
-
         TrailerData trailerDataImdb = restTemplate
-                .getForObject(urlBuilder.toString(), TrailerData.class);
+                .getForObject(getUrlServiceIMDB(serviceUsed, idTitle).toString(),
+                        TrailerData.class);
 
         return trailerDataImdb;
     }
 
     public UserRatingData getUserRaitngByIdTitle(String serviceUsed, String idTitle) {
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/")
-                .append(serviceUsed).append("/").append(imdbProperties.getApiKey())
-                .append("/").append(idTitle);
-
         UserRatingData userRatingImdb = restTemplate
-                .getForObject(urlBuilder.toString(), UserRatingData.class);
+                .getForObject(getUrlServiceIMDB(serviceUsed, idTitle).toString(),
+                        UserRatingData.class);
 
         return userRatingImdb;
     }
@@ -111,12 +86,8 @@ public class SearchTitleImdbService {
                                                                     String idTitle,
                                                                     String episodeNUmber) {
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/")
-                .append(serviceUsed).append("/").append(imdbProperties.getApiKey())
-                .append("/").append(idTitle)
-                .append("/").append(episodeNUmber);
+        StringBuilder urlBuilder = getUrlServiceIMDB(serviceUsed, idTitle);
+        urlBuilder.append("/").append(episodeNUmber);
 
         SeasonEpisodeData seasonEpisodeData = restTemplate.getForObject(
                 urlBuilder.toString(), SeasonEpisodeData.class);
@@ -127,14 +98,9 @@ public class SearchTitleImdbService {
     public ExternalSiteData getExternalSitesByTitleAndEpisodeNumber(String serviceUsed,
                                                                     String idTitle) {
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/")
-                .append(serviceUsed).append("/").append(imdbProperties.getApiKey())
-                .append("/").append(idTitle);
-
         ExternalSiteData seasonEpisodeData = restTemplate.getForObject(
-                urlBuilder.toString(), ExternalSiteData.class);
+                getUrlServiceIMDB(serviceUsed, idTitle).toString(),
+                ExternalSiteData.class);
 
         return seasonEpisodeData;
     }
@@ -142,13 +108,8 @@ public class SearchTitleImdbService {
     public WikipediaData getWikipediDataByIdTitle(String serviceUsed,
                                                   String idTitle) {
 
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/")
-                .append(serviceUsed).append("/").append(imdbProperties.getApiKey())
-                .append("/").append(idTitle);
-
-        WikipediaData wikipediaData = restTemplate.getForObject(urlBuilder.toString()
+        WikipediaData wikipediaData = restTemplate.getForObject(
+                getUrlServiceIMDB(serviceUsed, idTitle).toString()
                 , WikipediaData.class);
 
         return wikipediaData;
@@ -157,16 +118,22 @@ public class SearchTitleImdbService {
     public IMDbListData getIMDBListByIdTitle(String serviceUsed,
                                              String idTitle) {
 
+        IMDbListData imDbListData = restTemplate.getForObject(
+                getUrlServiceIMDB(serviceUsed, idTitle).toString(),
+                IMDbListData.class);
+
+        return imDbListData;
+    }
+
+    protected StringBuilder getUrlServiceIMDB(String serviceUsed,
+                                           String idTitle) {
+
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(imdbProperties.getUrlService())
                 .append(imdbProperties.getLanguageSearch()).append("/API/")
                 .append(serviceUsed).append("/").append(imdbProperties.getApiKey())
                 .append("/").append(idTitle);
 
-        IMDbListData imDbListData = restTemplate.getForObject(urlBuilder.toString(),
-                IMDbListData.class);
-
-        return imDbListData;
+        return urlBuilder;
     }
-
 }
