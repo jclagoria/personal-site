@@ -21,6 +21,16 @@ public class ImdbSearchServices {
 
     public SearchImdbModel getSearchImdbService(String urlSearch, String expresionSearch) {
 
+
+        SearchImdbModel search = restTemplate.getForObject(
+                getURLServiceIMDB(urlSearch, expresionSearch).toString(),
+                SearchImdbModel.class);
+
+        return search;
+    }
+
+    protected StringBuilder getURLServiceIMDB(String urlSearch, String expresionSearch) {
+
         StringBuilder builderUrl = new StringBuilder();
         builderUrl.append(imdbProperties.getUrlService())
                 .append(imdbProperties.getLanguageSearch())
@@ -28,9 +38,6 @@ public class ImdbSearchServices {
                 .append(imdbProperties.getApiKey()).append("/")
                 .append(expresionSearch);
 
-        SearchImdbModel search = restTemplate.getForObject(builderUrl.toString(), SearchImdbModel.class);
-
-        return search;
+        return builderUrl;
     }
-
 }

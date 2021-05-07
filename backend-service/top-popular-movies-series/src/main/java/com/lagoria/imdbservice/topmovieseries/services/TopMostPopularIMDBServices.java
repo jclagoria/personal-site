@@ -20,55 +20,30 @@ public class TopMostPopularIMDBServices {
         this.imdbProperties = imdbProperties;
     }
 
-    public Top250Data getTop250Movies(String serviceUsed) {
-
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/").append(serviceUsed)
-                .append("/").append(imdbProperties.getApiKey());
-
-        Top250Data top250Movies = restTemplate.getForObject(urlBuilder.toString(), Top250Data.class);
+    public Top250Data getTop250Data(String serviceUsed) {
+        Top250Data top250Movies = restTemplate.getForObject(
+                getServiceURLIMDB(serviceUsed).toString(),
+                Top250Data.class);
 
         return top250Movies;
     }
 
-    public Top250Data getTop250Series(String serviceUsed) {
-
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/").append(serviceUsed)
-                .append("/").append(imdbProperties.getApiKey());
-
-        Top250Data top250Series = restTemplate.getForObject(urlBuilder.toString(), Top250Data.class);
-
-        return top250Series;
-
-    }
-
-    public MostPopularData getMostPopularMovies(String serviceUsed) {
-
-        StringBuilder urlBuilder = new StringBuilder();
-        urlBuilder.append(imdbProperties.getUrlService())
-                .append(imdbProperties.getLanguageSearch()).append("/API/").append(serviceUsed)
-                .append("/").append(imdbProperties.getApiKey());
-
-        MostPopularData mostPopularMovies = restTemplate.getForObject(urlBuilder.toString(),
+    public MostPopularData getMostPopularData(String serviceUsed) {
+        MostPopularData mostPopularMovies = restTemplate.getForObject(
+                getServiceURLIMDB(serviceUsed).toString(),
                 MostPopularData.class);
 
         return mostPopularMovies;
     }
 
-    public MostPopularData getMostPopularTV(String serviceUsed) {
+    protected StringBuilder getServiceURLIMDB(String serviceUsed) {
 
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(imdbProperties.getUrlService())
                 .append(imdbProperties.getLanguageSearch()).append("/API/").append(serviceUsed)
                 .append("/").append(imdbProperties.getApiKey());
 
-        MostPopularData mostPopularTv = restTemplate.getForObject(urlBuilder.toString(),
-                MostPopularData.class);
-
-        return mostPopularTv;
+        return urlBuilder;
     }
 
 }

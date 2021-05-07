@@ -1,5 +1,6 @@
 package com.lagoria.imdbservice.search.resources;
 
+import com.lagoria.imdbservice.search.enums.ServiceIMDBEnum;
 import com.lagoria.imdbservice.search.model.SearchImdbModel;
 import com.lagoria.imdbservice.search.services.ImdbSearchServices;
 import io.swagger.annotations.Api;
@@ -24,7 +25,10 @@ public class SearchResources {
     @ResponseBody
     public SearchImdbModel getSearchByMovies(@RequestParam String expresionSearch) {
 
-        SearchImdbModel resultSearch = searchServices.getSearchImdbService("SearchMovie", expresionSearch);
+        SearchImdbModel resultSearch = searchServices
+                .getSearchImdbService(
+                        ServiceIMDBEnum.SEARCH_MOVIE.toString(),
+                        expresionSearch);
 
         return resultSearch;
     }
@@ -33,7 +37,10 @@ public class SearchResources {
     @GetMapping(path = "/seriesTv")
     @ResponseBody
     public SearchImdbModel getSearchBySeries(@RequestParam String expresionSearch) {
-        SearchImdbModel resultSearch = searchServices.getSearchImdbService("SearchSeries", expresionSearch);
+        SearchImdbModel resultSearch = searchServices
+                .getSearchImdbService(
+                        ServiceIMDBEnum.SEARCH_SERIES.getNameService(),
+                        expresionSearch);
 
         return resultSearch;
     }
@@ -42,7 +49,10 @@ public class SearchResources {
     @GetMapping(path = "/company")
     @ResponseBody
     public SearchImdbModel getSearchByCompany(@RequestParam String expresionSearch) {
-        SearchImdbModel resultSearch = searchServices.getSearchImdbService("SearchCompany", expresionSearch);
+        SearchImdbModel resultSearch = searchServices
+                .getSearchImdbService(
+                        ServiceIMDBEnum.SEARCH_COMPANY.getNameService(),
+                        expresionSearch);
 
         return resultSearch;
     }
@@ -52,7 +62,10 @@ public class SearchResources {
     @ResponseBody
     public SearchImdbModel getSearchPeopleByName(@RequestParam String expresionSearch) {
 
-        SearchImdbModel resultSearch = searchServices.getSearchImdbService("SearchName", expresionSearch);
+        SearchImdbModel resultSearch = searchServices
+                .getSearchImdbService(
+                        ServiceIMDBEnum.SEARCH_NAME.getNameService(),
+                        expresionSearch);
 
         return resultSearch;
     }
@@ -61,7 +74,10 @@ public class SearchResources {
     @GetMapping(path = "/episode")
     @ResponseBody
     public SearchImdbModel getSearchByEpisode(@RequestParam String expressionSearch) {
-        SearchImdbModel resultSearch = searchServices.getSearchImdbService("SearchEpisode", expressionSearch);
+        SearchImdbModel resultSearch = searchServices
+                .getSearchImdbService(
+                        ServiceIMDBEnum.SEARCH_EPISODE.getNameService(),
+                        expressionSearch);
 
         return resultSearch;
     }

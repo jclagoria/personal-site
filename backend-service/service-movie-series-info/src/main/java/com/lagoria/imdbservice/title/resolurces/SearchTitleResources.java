@@ -1,6 +1,7 @@
 package com.lagoria.imdbservice.title.resolurces;
 
 import com.lagoria.imdbservice.title.configurations.ImdbProperties;
+import com.lagoria.imdbservice.title.enums.ServiceNameIMDBEnum;
 import com.lagoria.imdbservice.title.model.*;
 import com.lagoria.imdbservice.title.services.SearchTitleImdbService;
 import io.swagger.annotations.Api;
@@ -32,21 +33,25 @@ public class SearchTitleResources {
 
         Optional<String> optionalSearchOptions = Optional.ofNullable(searchOptions);
 
-        return searchTitleImdbService.getTitleByIdImdb("Title", idTitleImdb, optionalSearchOptions);
+        return searchTitleImdbService
+                .getTitleByIdImdb(ServiceNameIMDBEnum.TITLE.getNameService(),
+                        idTitleImdb, optionalSearchOptions);
     }
 
     @ApiOperation("Get List of Cast in a movie")
     @GetMapping(path = "/fullCast")
     @ResponseBody
     public FullCastData getFullCastByIdTtitle(@RequestParam String idTitleImdb) {
-        return searchTitleImdbService.getFullCastByIdTitleImdb("FullCast", idTitleImdb);
+        return searchTitleImdbService.getFullCastByIdTitleImdb(
+                ServiceNameIMDBEnum.FULLCAST.getNameService(), idTitleImdb);
     }
 
     @ApiOperation("Get Poster of Movie.")
     @GetMapping(path = "/poster")
     @ResponseBody
     public PosterData getPosterByIdTitle(@RequestParam String idTitleImdb) {
-        return searchTitleImdbService.getPosterByIdTitleImdb("Posters", idTitleImdb);
+        return searchTitleImdbService.getPosterByIdTitleImdb(
+                ServiceNameIMDBEnum.POSTERS.getNameService(), idTitleImdb);
     }
 
     @ApiOperation("Get Images about a Movie.")
@@ -56,7 +61,9 @@ public class SearchTitleResources {
                                            @ApiParam("can Short (default) or Full. Short parameter contains 48 images. Full parameter (tt only) contains all available images.")
                                            @RequestParam String option){
 
-        return searchTitleImdbService.getImagenByIdTitleImdb("Images", idTitleImdb, option);
+        return searchTitleImdbService.getImagenByIdTitleImdb(
+                ServiceNameIMDBEnum.IMAGES.getNameService(),
+                idTitleImdb, option);
     }
 
     @ApiOperation("Get Trailer for a movie o series according to th Unique Id")
@@ -64,7 +71,9 @@ public class SearchTitleResources {
     @ResponseBody
     public TrailerData getTrailerDataByIdTitle(@RequestParam String idTitleImdb) {
 
-        return searchTitleImdbService.getTraileByIdTitle("Trailer", idTitleImdb);
+        return searchTitleImdbService.getTraileByIdTitle(
+                ServiceNameIMDBEnum.TRAILER.getNameService(),
+                idTitleImdb);
     }
 
     @ApiOperation("Get User Raiting for a movie o series according to th Unique Id")
@@ -72,7 +81,9 @@ public class SearchTitleResources {
     @ResponseBody
     public UserRatingData getUserRatingByIdTitle(@RequestParam String idTitleImdb) {
 
-        return searchTitleImdbService.getUserRaitngByIdTitle("UserRatings", idTitleImdb);
+        return searchTitleImdbService.getUserRaitngByIdTitle(
+                ServiceNameIMDBEnum.USERRATINGS.getNameService(),
+                idTitleImdb);
     }
 
     @ApiOperation("Get Seasion Episode of a series according to the Unique Id")
@@ -82,7 +93,10 @@ public class SearchTitleResources {
             @RequestParam String idTitleImdb, @RequestParam String seasonNUmber) {
 
         return searchTitleImdbService
-                .getSeasonEpisodByTitleAndEpisodeNumber("SeasonEpisodes", idTitleImdb, seasonNUmber);
+                .getSeasonEpisodByTitleAndEpisodeNumber(
+                        ServiceNameIMDBEnum.SEASONEPISODES.getNameService(),
+                        idTitleImdb,
+                        seasonNUmber);
     }
 
     @ApiOperation("Get external sites about movies or series according to the Unique Id")
@@ -91,7 +105,9 @@ public class SearchTitleResources {
     public ExternalSiteData getExternalSiteDataByIdTitle(@RequestParam String idTitleImdb) {
 
         return searchTitleImdbService
-                .getExternalSitesByTitleAndEpisodeNumber("ExternalSites", idTitleImdb);
+                .getExternalSitesByTitleAndEpisodeNumber(
+                        ServiceNameIMDBEnum.EXTERNALSITES.getNameService(),
+                        idTitleImdb);
     }
 
     @ApiOperation("Get Info form Wikipedia about a movies or series accordign to the Unique Id")
@@ -99,7 +115,9 @@ public class SearchTitleResources {
     @ResponseBody
     public WikipediaData getWikipediaDataByIdTitle(@RequestParam String idTitleImdb) {
 
-        return searchTitleImdbService.getWikipediDataByIdTitle("Wikipedia", idTitleImdb);
+        return searchTitleImdbService.getWikipediDataByIdTitle(
+                ServiceNameIMDBEnum.WIKIPEDIA.getNameService(),
+                idTitleImdb);
     }
 
     @ApiOperation("Get List of Movies/Series accordign to the Unique Id")
@@ -107,7 +125,9 @@ public class SearchTitleResources {
     @ResponseBody
     public IMDbListData getImdbListData(@RequestParam String idTitleImdb) {
 
-        return searchTitleImdbService.getIMDBListByIdTitle("IMDBList", idTitleImdb);
+        return searchTitleImdbService.getIMDBListByIdTitle(
+                ServiceNameIMDBEnum.IMDBLIST.getNameService(),
+                idTitleImdb);
     }
 
 }
