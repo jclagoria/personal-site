@@ -1,3 +1,6 @@
 api.imdb.urlService: https://imdb-api.com/
 api.imdb.languageSearch: en
-api.imdb.apiKey: aca-va-tu-apiKey
+api.imdb.apiKey: k_3pipipbg
+
+server:
+  port: 8080

@@ -27,7 +27,7 @@ public class SearchResources {
 
         SearchImdbModel resultSearch = searchServices
                 .getSearchImdbService(
-                        ServiceIMDBEnum.SEARCH_MOVIE.toString(),
+                        ServiceIMDBEnum.SEARCH_MOVIE.getNameService(),
                         expresionSearch);
 
         return resultSearch;
