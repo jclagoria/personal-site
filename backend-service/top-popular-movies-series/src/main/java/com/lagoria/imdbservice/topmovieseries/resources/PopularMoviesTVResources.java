@@ -29,7 +29,7 @@ public class PopularMoviesTVResources {
 
         return imdbServices
                 .getTop250Data(
-                        ServiceIMDBEnum.TOP_250_MOVIES.toString());
+                        ServiceIMDBEnum.TOP_250_MOVIES.getNameService());
     }
 
     @GetMapping("/top25/series")
