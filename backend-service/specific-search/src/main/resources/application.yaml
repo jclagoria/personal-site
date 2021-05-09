@@ -3,4 +3,5 @@ api.imdb.languageSearch: en
 api.imdb.apiKey: imdb-api-key-here
 
 server:
-  port: 8080
+  port: 8084
+
