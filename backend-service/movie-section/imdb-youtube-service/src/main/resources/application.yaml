@@ -1,1 +1,7 @@
+api.imdb.urlService: https://imdb-api.com/
+api.imdb.languageSearch: en
+api.imdb.apiKey: imdb-api-aca
+
+server:
+  port: 8085
 
